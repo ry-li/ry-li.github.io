@@ -1,8 +1,8 @@
-# RY-Li.github.io
+# ry-li.github.io
 
 <b>My personal site</b>
 
 
-https://R-Li.com
+https://r-li.com
 
-https://Li-R.com
+https://li-r.com
