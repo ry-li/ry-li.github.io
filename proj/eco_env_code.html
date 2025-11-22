@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生态环境法典 - 光污染相关条文 (Ecology and Environment Code - Light Pollution)</title>
+    <title>生态环境法典（草案） - 光污染相关条文 Ecology and Environment Code (Draft) - Light Pollution</title>
     <style>
-        /* 全局设置 */
+        /* global */
         body {
             font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
             line-height: 1.6;
@@ -23,7 +23,7 @@
             border-radius: 10px;
         }
 
-        /* 页面主标题样式 (Main Title) */
+        /* Header */
         .doc-header {
             text-align: center;
             margin-bottom: 40px;
@@ -39,20 +39,37 @@
         }
 
         .doc-title-en {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
+            font-weight: bold;
             color: #555;
-            font-weight: normal;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .doc-notes {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+            margin-bottom: 20px;
             line-height: 1.4;
         }
 
-        /* 表格布局 */
+        .translator-header {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        /* Table Layout */
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* 锁定列宽比例 */
+            table-layout: fixed; /* Lock column width ratio */
         }
 
-        /* 列宽定义 */
+        /* Column Width Definition */
         col.col-cn { width: 45%; }
         col.col-gap { width: 10%; }
         col.col-en { width: 45%; }
@@ -63,9 +80,9 @@
             word-wrap: break-word;
         }
 
-        /* --- 层级样式设计 --- */
+        /* --- Hierarchical Style Design --- */
 
-        /* Level 1: 法典名称 (Code Name) - 最顶级 */
+        /* Level 1: 法典名称 (Code Name) */
         .level-1 {
             background-color: #2c3e50;
             color: #fff;
@@ -73,12 +90,12 @@
             font-weight: bold;
             text-align: center;
             padding: 15px;
-            border-radius: 6px 6px 0 0; /* 仅顶部圆角 */
+            border-radius: 6px 6px 0 0; /* Only top corners rounded */
         }
 
-        /* Level 2: 编 (Book) - 大板块 */
+        /* Level 2: 编 (Book) - Major Section */
         .level-2 {
-            background-color: #e3e8ee; /* 浅灰蓝 */
+            background-color: #e3e8ee; /* Light gray-blue */
             color: #000;
             font-size: 1.2rem;
             font-weight: bold;
@@ -101,8 +118,8 @@
 
         /* Level 4: 章 (Chapter) */
         .level-4 {
-            background-color: #fffcf0; /* 极浅黄，区分层级 */
-            color: #d35400; /* 稍微醒目的颜色 */
+            background-color: #fffcf0; /* Very light yellow, distinguish hierarchy */
+            color: #d35400; /* Slightly prominent color */
             font-size: 1.05rem;
             font-weight: bold;
             text-align: center;
@@ -132,7 +149,7 @@
             background-color: #fafafa;
         }
 
-        /* 样式细节 */
+        /* Style Details */
         .article-num {
             display: block;
             font-weight: bold;
@@ -141,11 +158,11 @@
         }
 
         .highlight {
-            color: #d93025; /* 红色高亮 */
+            color: #d93025; /* Red highlight */
             font-weight: bold;
         }
 
-        .translator {
+        .translator-footer {
             text-align: center;
             margin-top: 40px;
             color: #999;
@@ -161,10 +178,29 @@
 <div class="container">
 
     <div class="doc-header">
-        <div class="doc-title-cn">生态环境法典 污染防治编 + 法律责任和附则编（草案）（二次审议稿）中关于光污染的条文</div>
+        <div class="doc-title-cn">生态环境法典 污染防治编 + 法律责任和附则编（草案二次审议稿）中关于光污染的条文</div>
         <div class="doc-title-en">
-            Lighting pollution related articles in the Ecology and Environment Code<br>
-            Book of Pollution Prevention and Control + Book of Legal Liability and Supplementary Provisions (Draft) (Second Deliberation Draft)
+            Lighting pollution related articles in the <i>Ecology and Environment Code</i><br>
+            Book of Pollution Prevention and Control + Book of Legal Liability and Supplementary Provisions <i>(Second Deliberation Draft)</i>
+        </div>
+        <div class="doc-notes">
+            <br>
+            注：本翻译仅供参考，不作为法律依据。如有疑义，请以中文原文为准。<br>
+            Note: This translation is for reference only and does not constitute legal basis. In case of any doubt, please refer to the original Chinese text.<br>
+            <br>
+            原文PDF下载链接&nbsp;|&nbsp;Download links to the original PDF files:<br>
+            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72c4f019a1ffcb608592c/attachment.pdf" target="_blank" rel="noopener">生态环境法典污染防治编（草案二次审议稿）</a><br>
+            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72aa4019a1fdf699b61dc/attachment.pdf" target="_blank" rel="noopener">生态环境法典法律责任和附则编（草案二次审议稿）</a><br>
+            <br>
+            2025年11月26日之前公开征求意见<br>
+            Public Comment until Nov 26, 2025<br>
+            生态环境法典污染防治编（草案二次审议稿）征求意见 <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72c4f019a1ffcb608592c" target="_blank" rel="noopener">链接 Link</a><br>
+            生态环境法典法律责任和附则编（草案二次审议稿）征求意见 <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72aa4019a1fdf699b61dc" target="_blank" rel="noopener">链接 Link</a>
+        </div>
+        <div class="translator-header">
+            Translated by &copy; Ruoyu Li&nbsp;|&nbsp;Nov 2025
+            <br>
+            <a href="https://r-li.com" target="_blank" rel="noopener">r-li.com</a>
         </div>
     </div>
 
@@ -376,7 +412,7 @@
         </tbody>
     </table>
 
-    <div class="translator">
+    <div class="translator-footer">
         Translated by &copy; Ruoyu Li&nbsp;|&nbsp;Nov 2025
         <br>
         <a href="https://r-li.com" target="_blank" rel="noopener">r-li.com</a>
