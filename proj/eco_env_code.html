@@ -11,15 +11,18 @@
             line-height: 1.6;
             color: #333;
             margin: 0;
-            padding: 40px;
+            padding: 9px;
             background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
             max-width: 100%;
+            max-width: 1234px;
             background: #fff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            padding: 40px;
+            padding: 9px;
             border-radius: 10px;
         }
 
@@ -27,7 +30,8 @@
         .doc-header {
             text-align: center;
             margin-bottom: 40px;
-            padding-bottom: 20px;
+            padding-top: 14px;
+            padding-bottom: 14px;
             border-bottom: 3px solid #eee;
         }
         
@@ -35,7 +39,7 @@
             font-size: 1.6rem;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .doc-title-en {
@@ -43,14 +47,14 @@
             font-weight: bold;
             color: #555;
             line-height: 1.4;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .doc-notes {
             font-size: 0.9rem;
             color: #888;
             margin-top: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             line-height: 1.4;
         }
 
@@ -59,7 +63,7 @@
             color: #999;
             font-size: 0.9rem;
             border-top: 1px solid #eee;
-            padding-top: 20px;
+            padding-top: 14px;
         }
 
         /* Table Layout */
@@ -70,12 +74,12 @@
         }
 
         /* Column Width Definition */
-        col.col-cn { width: 45%; }
-        col.col-gap { width: 10%; }
-        col.col-en { width: 45%; }
+        col.col-cn { width: 49.5%; }
+        col.col-gap { width: auto; }
+        col.col-en { width: 49.5%; }
 
         td {
-            padding: 10px 15px;
+            padding: 10px 9px;
             vertical-align: top;
             word-wrap: break-word;
         }
@@ -89,7 +93,7 @@
             font-size: 1.4rem;
             font-weight: bold;
             text-align: center;
-            padding: 15px;
+            padding: 9px;
             border-radius: 6px 6px 0 0; /* Only top corners rounded */
         }
 
@@ -100,7 +104,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             text-align: center;
-            padding: 15px;
+            padding: 8px;
             border-top: 2px solid #fff;
             border-bottom: 1px solid #ccc;
         }
@@ -112,18 +116,18 @@
             font-size: 1.1rem;
             font-weight: bold;
             text-align: center;
-            padding: 12px;
+            padding: 7px;
             border-top: 1px solid #ddd;
         }
 
         /* Level 4: 章 (Chapter) */
         .level-4 {
             background-color: #fffcf0; /* Very light yellow, distinguish hierarchy */
-            color: #d35400; /* Slightly prominent color */
+            color: #555;
             font-size: 1.05rem;
             font-weight: bold;
             text-align: center;
-            padding: 10px;
+            padding: 6px;
             border-bottom: 1px dashed #ddd;
         }
 
@@ -133,7 +137,7 @@
             color: #666;
             font-weight: bold;
             text-align: center;
-            padding: 8px;
+            padding: 5px;
             background-color: #fff;
             border-bottom: 1px solid #eee;
         }
@@ -141,8 +145,8 @@
         /* Level 6: 正文条目 (Articles) */
         .article-row td {
             border-bottom: 1px solid #eee;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 14px;
+            padding-bottom: 14px;
         }
 
         .article-row:hover {
@@ -153,7 +157,7 @@
         .article-num {
             display: block;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #000;
         }
 
@@ -181,21 +185,21 @@
         <div class="doc-title-cn">生态环境法典 污染防治编 + 法律责任和附则编（草案二次审议稿）中关于光污染的条文</div>
         <div class="doc-title-en">
             Lighting pollution related articles in the <i>Ecology and Environment Code</i><br>
-            Book of Pollution Prevention and Control + Book of Legal Liability and Supplementary Provisions <i>(Second Deliberation Draft)</i>
+            Book of Pollution Prevention and Control + Book of Legal Liability and Supplementary Provisions<br><i>(Second Deliberation Draft)</i>
         </div>
         <div class="doc-notes">
             <br>
             注：本翻译仅供参考，不作为法律依据。如有疑义，请以中文原文为准。<br>
             Note: This translation is for reference only and does not constitute legal basis. In case of any doubt, please refer to the original Chinese text.<br>
             <br>
-            原文PDF下载链接&nbsp;|&nbsp;Download links to the original PDF files:<br>
-            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72c4f019a1ffcb608592c/attachment.pdf" target="_blank" rel="noopener">生态环境法典污染防治编（草案二次审议稿）</a><br>
-            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72aa4019a1fdf699b61dc/attachment.pdf" target="_blank" rel="noopener">生态环境法典法律责任和附则编（草案二次审议稿）</a><br>
+            原文PDF下载&nbsp;|&nbsp;Original PDF download :<br>
+            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72c4f019a1ffcb608592c/attachment.pdf" target="_blank" rel="noopener">污染防治编（草案二次审议稿）</a><br>
+            <a href="http://www.npc.gov.cn/flcaw/flca/ff80818199e72aa4019a1fdf699b61dc/attachment.pdf" target="_blank" rel="noopener">法律责任和附则编（草案二次审议稿）</a><br>
             <br>
             2025年11月26日之前公开征求意见<br>
             Public Comment until Nov 26, 2025<br>
-            生态环境法典污染防治编（草案二次审议稿）征求意见 <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72c4f019a1ffcb608592c" target="_blank" rel="noopener">链接 Link</a><br>
-            生态环境法典法律责任和附则编（草案二次审议稿）征求意见 <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72aa4019a1fdf699b61dc" target="_blank" rel="noopener">链接 Link</a>
+            <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72c4f019a1ffcb608592c" target="_blank" rel="noopener">污染防治编（草案二次审议稿）</a><br>
+            <a href="http://www.npc.gov.cn/flcaw/userIndex.html?lid=ff80818199e72aa4019a1fdf699b61dc" target="_blank" rel="noopener">法律责任和附则编（草案二次审议稿）</a>
         </div>
         <div class="translator-header">
             Translated by &copy; Ruoyu Li&nbsp;|&nbsp;Nov 2025
@@ -221,8 +225,8 @@
 
             <tr>
                 <td colspan="3" class="level-2">
-                    污染防治编（草案）（二次审议稿）<br>
-                    <span style="font-size: 0.9em; font-weight: normal;">Book of Pollution Prevention and Control (Draft) (Second Deliberation Draft)</span>
+                    污染防治编（草案二次审议稿）<br>
+                    <span style="font-size: 0.9em; font-weight: normal;">Book of Pollution Prevention and Control (Second Deliberation Draft)</span>
                 </td>
             </tr>
 
@@ -236,7 +240,7 @@
             <tr>
                 <td colspan="3" class="level-4">
                     第一章 一般规定<br>
-                    <span style="font-size: 0.9em; font-weight: normal; color: #555;">Chapter I &nbsp; General Rules</span>
+                    <span style="font-size: 0.9em; font-weight: normal;">Chapter I &nbsp; General Rules</span>
                 </td>
             </tr>
 
@@ -262,7 +266,7 @@
             <tr>
                 <td colspan="3" class="level-4">
                     第三十六章 <span class="highlight">光污染防治</span><br>
-                    <span style="font-size: 0.9em; font-weight: normal; color: #555;">Chapter XXXVI &nbsp; <span class="highlight">Prevention and Control of Light Pollution</span></span>
+                    <span style="font-size: 0.9em; font-weight: normal;">Chapter XXXVI &nbsp; <span class="highlight">Light Pollution Prevention and Control</span></span>
                 </td>
             </tr>
 
@@ -378,15 +382,15 @@
 
             <tr>
                 <td colspan="3" class="level-2">
-                    法律责任和附则编（草案）（二次审议稿）<br>
-                    <span style="font-size: 0.9em; font-weight: normal;">Book of Legal Liability and Supplementary Provisions (Draft) (Second Deliberation Draft)</span>
+                    法律责任和附则编（草案二次审议稿）<br>
+                    <span style="font-size: 0.9em; font-weight: normal;">Book of Legal Liability and Supplementary Provisions (Second Deliberation Draft)</span>
                 </td>
             </tr>
 
             <tr>
                 <td colspan="3" class="level-4">
                     第二章 法律责任分则<br>
-                    <span style="font-size: 0.9em; font-weight: normal; color: #555;">Chapter II &nbsp; Legal Liability - Specific Provisions</span>
+                    <span style="font-size: 0.9em; font-weight: normal;">Chapter II &nbsp; Legal Liability - Specific Provisions</span>
                 </td>
             </tr>
 
