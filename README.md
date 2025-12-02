@@ -9,4 +9,4 @@ https://li-r.com
 
 https://r-y.li
 
-https://asterl.com/
+https://asterl.com
