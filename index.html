@@ -1,291 +1,781 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ruoyu Li's personal website">
+    <meta name="description" content="Ruoyu Li's personal website - NYU Graduate Student, DarkSky Delegate, Photographer">
     <title>Ruoyu Li</title>
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="icons/Li-V3-broken.svg">
     <link rel="apple-touch-icon" href="icons/Li-V3-broken.svg">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&amp;subset=latin">
+
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --nyu-violet: #57068c;
+            --nyu-light: #8900e1;
+            --nyu-bg: #f8f9fa;
+            --nyu-soft: #f3e8fd;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-soft: 0 4px 20px -2px rgba(87, 6, 140, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* FIX: Add scroll offset for sticky navbar */
+        section[id], main[id] {
+            scroll-margin-top: 6rem; /* 4rem navbar height + 2rem buffer */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--nyu-bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- Utility Classes --- */
+        .container-nav {
+            max-width: 64rem; /* max-w-5xl (approx 1024px) */
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container {
+            max-width: 64rem; /* Default max-w-5xl (approx 1024px) */
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .section-l {
+            max-width: 64rem; /* max-w-5xl (approx 1024px) */
+        }
+
+        .section-m {
+            max-width: 56rem; /* max-w-4xl (approx 896px) */
+        }
+
+        .section-s {
+            max-width: 48rem; /* max-w-3xl (approx 768px) */
+        }
+
+        .text-center { text-align: center; }
+        .text-nyu { color: var(--nyu-violet); }
+        .font-bold { font-weight: 700; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+
+        /* --- Navigation --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--nyu-violet);
+        }
+        .nav-logo:hover { color: var(--nyu-light); transform: scale(1.02); }
+        .nav-logo img { height: 2.6rem; width: auto; transition: transform 0.3s; }
+        .nav-logo:hover img { transform: scale(1.1); }
+
+        .nav-links {
+            display: none; /* Mobile first */
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .nav-link:hover { color: var(--nyu-violet); }
+
+        .nav-btn {
+            background-color: var(--nyu-violet);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-md);
+        }
+        .nav-btn:hover {
+            background-color: var(--nyu-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Dropdown */
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            margin-top: 0.5rem;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-soft);
+            width: 10rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: var(--text-main);
+        }
+        .dropdown-item:hover { background-color: var(--nyu-soft); color: var(--nyu-violet); }
+
+        /* Mobile Menu */
+        .mobile-toggle { display: block; border: none; background: none; font-size: 1.25rem; color: var(--text-muted); cursor: pointer; }
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 4rem;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            border-top: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            padding: 1rem;
+        }
+        .mobile-menu.active { display: block; }
+        .mobile-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            border-radius: 0.375rem;
+        }
+        .mobile-link:hover { background-color: var(--nyu-soft); color: var(--nyu-violet); }
+
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+            .mobile-toggle { display: none; }
+            .mobile-menu { display: none !important; }
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+            padding-top: 6rem; /* Space for fixed nav */
+            padding-bottom: 0;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 48rem; /* max-w-3xl (approx 768px) */
+            margin: 0 auto 4rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .profile-ring {
+            display: inline-block;
+            background: linear-gradient(to bottom right, #57068c, #8900e1);
+            padding: 4px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+        .profile-img {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            object-fit: cover;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .hero-name { font-size: 2.25rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem; }
+        .hero-name span { font-size: 1.5rem; font-weight: 400; color: #6b7280; margin-left: 0.5rem; }
+        .hero-titles p { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 0.5rem; color: var(--text-muted); font-size: 1.125rem; }
+        .hero-titles span { font-size: 0.875rem; color: #9ca3af; }
+
+        /* Social Icons */
+        .social-links { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .social-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 50%;
+            color: var(--text-muted);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .social-btn:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .social-btn:hover.nyu { color: var(--nyu-violet); background: var(--nyu-soft); }
+        .social-btn:hover.linkedin { color: #0077b5; background: #eaf6ff; }
+        .social-btn:hover.github { color: #000; background: #f3f4f6; }
+        .social-btn:hover.instagram { color: #E1306C; background: #fce7f3; }
+
+        /* Section Headers */
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+        .section-bar { height: 2rem; width: 0.25rem; background-color: var(--nyu-violet); border-radius: 9999px; }
+        .section-title { font-size: 1.5rem; font-weight: 700; color: #111827; }
+
+        /* Updates Box */
+        .updates-box {
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem;
+        }
+        .updates-scroll {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        /* Scrollbar Styling */
+        .updates-scroll::-webkit-scrollbar { width: 6px; }
+        .updates-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .updates-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        .updates-scroll::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+        .update-card {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #f3f4f6;
+            transition: var(--transition);
+            opacity: 0.75;
+        }
+        .update-card:hover { box-shadow: var(--shadow-md); border-color: #e5e7eb; opacity: 1;}
+        .update-date { font-size: 0.875rem; font-weight: 600; color: var(--nyu-violet); margin-bottom: 0.5rem; }
+        .update-title { font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+        .update-text { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        .update-link-container { display: flex; gap: 0.5rem; }
+        .update-link { display: inline-flex; align-items: center; font-size: 0.875rem; font-weight: 500; color: var(--nyu-violet); }
+        .update-link:hover { text-decoration: underline; color: var(--nyu-light); }
+        .update-link i { margin-left: 0.25rem; font-size: 0.75rem; }
+
+        /* About */
+        .about-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.125rem;
+        }
+        .about-card p { margin-bottom: 1.5rem; }
+        .about-link { color: var(--nyu-violet); font-weight: 500; }
+        .about-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+        .about-icon {
+            display: inline-block;
+            vertical-align: middle;
+            height: 1.125rem; /* Set a fixed height for the icons */
+            margin-right: 0.2rem; /* Add space between the icon and text */
+            margin-bottom: 0.2rem; /* Adjust bottom margin for better alignment */
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .gallery-item {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* Global Gallery Layout (Applies to all screens) */
+        .gallery-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
+        .g-span-2 { grid-column: span 2; }
+        .g-span-3 { grid-column: span 3; }
+        .aspect-square { aspect-ratio: 1 / 1; }
+        .h-fixed { 
+            height: auto;
+            aspect-ratio: 3 / 2; /* Maintains landscape proportion (3 cols wide, 2 cols high) so it scales perfectly */
+        }
+
+        /* Resume */
+        .resume-box {
+            background: var(--nyu-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            border: 2px dashed #d1d5db;
+        }
+        .resume-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--nyu-violet);
+            color: var(--white);
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .resume-btn:hover { background: var(--nyu-light); }
+        .resume-frame-container {
+            width: 100%;
+            max-width: 48rem; /* max-w-3xl (approx 768px) */
+            margin: 0 auto;
+            aspect-ratio: 8.5/11;
+            max-height: 800px;
+            background: var(--nyu-bg);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+        .resume-frame { width: 100%; height: 100%; border: none; }
+
+        /* Contact */
+        .contact-box {
+            background: var(--white);
+            padding: 2rem 2rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .hypercube-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+        }
+        .contact-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f9fafb;
+            color: #374151;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .contact-btn:hover { background: var(--nyu-violet); color: var(--white); }
+        .contact-socials { display: flex; justify-content: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid #f3f4f6; }
+        .contact-social-btn {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 50%;
+            color: var(--text-muted);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            font-size: 1.23rem;
+        }
+        .contact-social-btn:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .contact-social-btn:hover.nyu { color: var(--nyu-violet); background: var(--nyu-soft); }
+        .contact-social-btn:hover.linkedin { color: #0077b5; background: #eaf6ff; }
+        .contact-social-btn:hover.github { color: #000; background: #f3f4f6; }
+        .contact-social-btn:hover.instagram { color: #E1306C; background: #fce7f3; }
+
+        /* .contact-social-icon { font-size: 1.5rem; color: #9ca3af; padding: 0.5rem; }
+        .contact-social-icon:hover { color: var(--text-main); } */
+
+        /* Footer */
+        footer {
+            background: var(--nyu-violet);
+            color: var(--white);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-text { font-size: 0.875rem; opacity: 0.9; }
+        .footer-sub { font-size: 0.75rem; opacity: 0.6; margin-top: 0.8rem; display: flex; justify-content: center; align-items: center; gap: 0.25rem; }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container-nav nav-content">
+            <!-- Logo -->
+            <a href="#top" class="nav-logo">
+                <img src="icons/Li-V3-broken.svg" alt="Logo">
+                <span>Ruoyu Li</span>
+            </a>
 
+            <!-- Desktop Menu -->
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About Me</a>
+                <a href="#updates" class="nav-link">Updates</a>
+                <div class="dropdown">
+                    <button class="nav-link" style="background:none; border:none; cursor:pointer; font-family:inherit;">
+                        Resume <i class="fa-solid fa-chevron-down" style="font-size:0.7em; opacity:0.5;"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#resume" class="dropdown-item">View</a>
+                        <a href="docs/Resume Ruoyu Li.pdf" target="_blank" class="dropdown-item">Download</a>
+                    </div>
+                </div>
+                <a href="#contact" class="nav-btn">Contact</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#about" class="mobile-link">About Me</a>
+            <a href="#updates" class="mobile-link">Updates</a>
+            <a href="#resume" target="_blank" class="mobile-link">Resume</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <main id="top">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="profile-ring">
+                <img src="pics/profile.jpg" alt="Ruoyu Li" class="profile-img">
+            </div>
+            
+            <h1 class="hero-name">Ruoyu Li <span>李若愚</span></h1>
+            
+            <div class="hero-titles">
+                <p><i class="fa-solid fa-graduation-cap text-nyu"></i> <b>NYU Grad. Student</b> <span>|</span> M.S. Urban Data Science</p>
+                <p><i class="fa-solid fa-star text-nyu"></i> <b>DarkSky Delegate</b> <span>|</span> China & New York State</p>
+                <p><i class="fa-solid fa-camera text-nyu"></i> <b>Photographer</b> <span>|</span> Landscape & Street </p>
+            </div>
 
-        <!-- Responsive Topnav with Dropdown -->
-        <section class="topnav" id="myTopnav">
+            <div class="social-links">
+                <a href="mailto:hi@r-li.com" class="social-btn nyu"><i class="fa-regular fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/rli/" target="_blank" rel="noopener noreferrer" class="social-btn linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="http://github.com/ry-li" target="_blank" rel="noopener noreferrer" class="social-btn github"><i class="fa-brands fa-github"></i></a>
+                <a href="https://instagram.com/uyouril" target="_blank" rel="noopener noreferrer" class="social-btn instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://unsplash.com/@r_li" target="_blank" rel="noopener noreferrer" class="social-btn github"><i class="fa-brands fa-unsplash"></i></a>
+                <a href="https://500px.com/p/ruoyuli" target="_blank" rel="noopener noreferrer" class="social-btn github"><i class="fa-brands fa-500px"></i></a>
+                <a href="docs/rednote.jpg" target="_blank" class="social-btn instagram"><img src="icons/rednote.svg" alt="rednote"></a>
+            </div>
+        </section>
 
-            <a href="#top" class="nav-name">
-                <img src="icons/Li-V3-broken-white.svg" alt="Logo" class="nav-name-icon"> R-Li</a>
+        <!-- Updates Section -->
+        <section id="updates" class="container section-l">
+            <div class="section-header">
+                <div class="section-bar"></div>
+                <h2 class="section-title">Latest Updates</h2>
+            </div>
 
-            <a href="#about">
-                <i class="fa-regular fa-user"></i> About Me</a>
-            <div class="dropdown">
-                <button class="dropbtn">
-                    <i class="fa-regular fa-file"></i>Resume
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#resume-pdf">PDF Version</a>
-                    <a href="#resume-web">Web Version</a>
+            <div class="updates-box">
+                <div class="updates-scroll">
+                    <!-- Update 4 -->
+                    <div class="update-card" style="opacity: 1;">
+                        <div class="update-date">Dec 5, 2025</div>
+                        <h3 class="update-title"><i class="fa-solid fa-map"></i> Google Maps Timeline Toolbox</h3>
+                        <p class="update-text">Launched <b>"Google Maps Timeline Viewer,"</b> a mobile-friendly open-source Google Maps Timeline viewer on HTML with multiple filter functions; <b>"Google Maps Timeline Heatmap Visualizer,"</b> an open-source Google Maps Timeline heatmap visualization tool on HTML with options to customize various visualization parameters; and <b>"Google Maps Timeline to Fog of World Converter,"</b> an open-source script that converts exported Google Maps Timeline data into a GPX file of location points for easy import into the Fog of World app.</p>
+                        <div class="update-link-container">
+                            <a href="https://r-li.com/google-maps-timeline-viewer" target="_blank" rel="noopener noreferrer" class="update-link">Google Maps Timeline Viewer <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a href="https://github.com/ry-li/google-maps-timeline-viewer" target="_blank" rel="noopener noreferrer" class="update-link" style="color:var(--text-muted);">&&nbsp&nbspGitHub Repo <i class="fa-brands fa-github"></i></a>
+                        </div>
+                        <div class="update-link-container">
+                            <a href="http://r-li.com/google-maps-timeline-heatmap" target="_blank" rel="noopener noreferrer" class="update-link">Google Maps Timeline Heatmap Visualizer <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a href="https://github.com/ry-li/google-maps-timeline-heatmap" target="_blank" rel="noopener noreferrer" class="update-link" style="color:var(--text-muted);">&&nbsp&nbspGitHub Repo <i class="fa-brands fa-github"></i></a>
+                        </div>
+                        <div class="update-link-container">
+                            <a href="https://github.com/ry-li/google-maps-timeline-to-fow" target="_blank" rel="noopener noreferrer" class="update-link" style="color:var(--text-muted);">Google Maps Timeline to Fog of World Converter GitHub Repo <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <!-- Update 3 -->
+                    <div class="update-card">
+                        <div class="update-date">Dec 2, 2025</div>
+                        <h3 class="update-title"><i class="fa-regular fa-newspaper"></i> Interviewed by The New York Times</h3>
+                        <p class="update-text">I was interviewed for the New York Times article <i>"New York’s Skyline Has a Bold New Look - The JPMorgan Chase headquarters at 270 Park takes the city skyline into new territory with dynamic LED lights,"</i> sharing DarkSky's perspective on how the façade lighting on its crown adds to light pollution in the city.</p>
+                        <a href="https://www.nytimes.com/2025/12/02/realestate/270-park-avenue-jp-morgan-building.html?unlocked_article_code=1.6E8.N8fx.w2QrPzCtbQCx&smid=nytcore-ios-share" target="_blank" rel="noopener noreferrer" class="update-link">
+                            Read the NYT article <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                    <!-- Update 2 -->
+                    <div class="update-card">
+                        <div class="update-date">Nov 21, 2025</div>
+                        <h3 class="update-title"><i class="fa-solid fa-language"></i> Translation Project: Ecology and Environment Code</h3>
+                        <p class="update-text">Translated light pollution related articles (Chinese to English) in China's Ecology and Environment Code (Second Deliberation Draft).</p>
+                        <a href="https://darksky.cn/law/eco-env-code.html" target="_blank" rel="noopener noreferrer" class="update-link">
+                            Read the translation <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                    <!-- Update 1 -->
+                    <div class="update-card">
+                        <div class="update-date">Nov 19, 2025</div>
+                        <h3 class="update-title"><i class="fa-solid fa-map"></i> NYU GIS Day Mapping Competition - 2nd Place <i class="fa-solid fa-medal" style="color:#eab308;"></i></h3>
+                        <p class="update-text">Launched <b>"Map the NYC 2025 Primary & General Mayoral Election"</b>, an open-source NYC mayoral race real-time election night results mapping tool at the election district (ED) level.</p>
+                        <div class="update-link-container">
+                            <a href="https://r-li.com/map-nyc-election" target="_blank" rel="noopener noreferrer" class="update-link">View Interactive Map <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a href="https://github.com/ry-li/map-nyc-election" target="_blank" rel="noopener noreferrer" class="update-link" style="color:var(--text-muted);">&&nbsp&nbspGitHub Repo <i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <a href="#contact">
-                <i class="fa-regular fa-envelope"></i> Contact</a>
-
-            <!-- Transform hamburger into an animated “X” with smooth motion -->
-            <a href="javascript:void(0);" 
-                class="icon hamburger" 
-                id="hamburger" 
-                role="button" 
-                aria-controls="myTopnav" 
-                aria-label="Toggle menu" 
-                aria-expanded="false" 
-                style="font-size: 0.9em;">
-                <span></span><span></span><span></span>
-            </a>
-        </section> <!-- Closing Topnav -->
-
-
-        <!-- Name Section -->
-        <section class="name">
-            <!-- <img src="icons/Li-V3-broken.svg" alt="Logo" class="logo"> -->
-            <h2>Ruoyu Li&nbsp;&nbsp;李若愚</h2>
-        </section> <!-- Closing Name Section -->
-
-
-        <!-- Profile Section -->
-        <section class ="profile-container">
-            <img src="pics/profile.jpg" alt="Lǐ, RuòYú" class="profile-image">
-            <p class="profile-text">
-                <b> NYU Graduate Student</b>
-                <br>
-                &nbsp;<small>- Urban Data Science & Remote Sensing</small>
-                <br>
-                <b> DarkSky Delegate</b>
-                <br>
-                &nbsp;<small>- China & New York State</small>
-                <br>
-                <b> Amateur Photographer & Actor</b>
-                <br>
-                <b> Cat Parent</b>
-            </p>
-        </section> <!-- Closing Profile section -->
-
-
-        <!-- A Smaller Contact Section -->
-        <section class="contact-container-small">
-
-            <div class="contact-links">
-                <a class="contact-link" href="mailto:hi@r-li.com">
-                    <i class="fa-regular fa-envelope"></i>
-                </a>
-                <a class="contact-link" href="https://linkedin.com/in/rli/" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-linkedin contact-fa-icon"></i>
-                </a>
-                <a class="contact-link" href="http://github.com/ry-li" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-github contact-fa-icon"></i>
-                </a>
-                <a class="contact-link" href="https://instagram.com/uyouril" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-instagram contact-fa-icon"></i>
-                </a>
-                <a class="contact-link" href="https://unsplash.com/@r_li" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-unsplash contact-fa-icon"></i>
-                </a>
-                <a class="contact-link" href="https://500px.com/p/ruoyuli" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-500px contact-fa-icon"></i>
-                </a>
-                <a class="contact-link" href="https://www.xiaohongshu.com/user/profile/5c0072e951783a170d36f58a" target="_blank" rel="noopener">
-                    <img src="icons/Xiaohongshu--Streamline-Simple-Icons.png" alt="RedNote" class="contact-icon">
-                </a>
-            </div>
-
-        </section> <!-- Closing Contact section -->
-
-
-        <!---- Update Section ---->
-        <section>
-            <h2><i class="fa-solid fa-bullhorn"></i> Updates</h2>
-            <div class ="bio-container"> <!-- Reuse the bio-container -->
-                <p>
-                    <b>Nov 21 2025:</b>
-                    <br>
-                    Translation project (<i class="fa-solid fa-language"></i>Chinese to English):
-                    <br>
-                    Light pollution related articles in the Ecology and Environment Code - Book of Pollution Prevention and Control + Book of Legal Liability and Supplementary Provisions (Draft) (Second Deliberation Draft)
-                    <br>
-                    <b><a class="bio-link" href="https://darksky.cn/law/eco-env-code.html" target="_blank" rel="noopener"> <i class="fa-solid fa-book-open"></i> Click here to read the translation</a></b>
-                </p>
-
-                <p>
-                    <b>Nov 19 2025:</b>
-                    <br>
-                    Excited to share my latest project: 
-                    <b><i class="fa-solid fa-map"></i> Map the NYC 2025 Primary & General Mayoral Election</b> - Open-Source NYC Mayoral Real-Time Election Night Results Mapping at the Election District (ED) Level !
-                    <br>
-                    <b>Check it out 
-                    <a class="bio-link" href="https://r-li.com/map-nyc-election " target="_blank" rel="noopener"><i class="fa-regular fa-map"></i> here for the interactive map</a></b> and 
-                    <b><a class="bio-link" href="https://github.com/ry-li/map-nyc-election" target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> here for the GitHub Repository</a>.</b>
-                    <br>
-                    <b>The map won the
-                    <a class="bio-link" href="https://guides.nyu.edu/GISDay" target="_blank" rel="noopener"> NYU GIS Day 2025 Mapping Competition</a> <i class="fa-solid fa-medal"></i> 2nd Place !</b>
-                </p>
-            </div>
-
-        </section> <!-- Closing Update section -->
-
-
-
-
-        <!-- About Me section -->
-        <section id="about" class="anchor">
-
-            <h2><i class="fa-regular fa-user"></i> About Me</h2>
-
-            <div class ="bio-container">
-                <p>
-                    Hi! I am Ruoyu Li (李若愚 Lǐ, RuòYú), an advocate for the
-                    <a class="bio-link" href="https://darksky.org/who-we-are" target="_blank" rel="noopener">dark sky movement</a> and 
-                    <a class="bio-link" href="https://darksky.org/what-we-do/advancing-responsible-outdoor-lighting" target="_blank" rel="noopener">responsible outdoor lighting</a>.
-                    I have experience working with startups and NGOs, and am currently a graduate student in urban data science at
-                    <a class="bio-link" href="https://engineering.nyu.edu/research-innovation/centers/cusp" target="_blank" rel="noopener">
-                        <img src="icons/NYU.png" alt="NYU" class="bio-icon">NYU CUSP</a> (Center for Urban Science + Progress).
-                    I serve as an Engagement Volunteer at
-                    <a class="bio-link" href="https://darksky.org" target="_blank" rel="noopener">
-                        <img src="icons/DarkSky.png" alt="DarkSky" class="bio-icon">DarkSky International</a>, lead the DarkSky
-                    <a class="bio-link" href="https://darkskyny.org" target="_blank" rel="noopener">New York chapter</a> and the
-                    <a class="bio-link" href="https://darksky.cn" target="_blank" rel="noopener">Beijing chapter</a>, and co-founded the Shenzhen chapter. I'm also the founding treasurer of the
-                    <a class="bio-link" href="https://community.asprs.org/chapter-nyu" target="_blank" rel="noopener">
-                        <img src="icons/ASPRS_NYU.svg" alt="ASPRS_NYU" class="bio-icon">NYU student chapter</a> of
-                    <a class="bio-link" href="https://www.asprs.org" target="_blank" rel="noopener">ASPRS</a> (American Society for Photogrammetry and Remote Sensing), a member of the Student Committee and the Open Tech Committee at
-                    <a class="bio-link" href="https://gismonyc.org" target="_blank" rel="noopener">
-                        <img src="icons/GISMO.png" alt="GISMO" class="bio-icon">GISMO</a> (NYC GeoSpatial Information Systems and Mapping Organization), and a student member of the
-                    <a class="bio-link" href="https://www.chinacses.org/" target="_blank" rel="noopener">
-                        <img src="icons/CSES.svg" alt="CSES" class="bio-icon">Chinese Society for Environmental Sciences</a>.
-                    I am passionate about using data to drive urban sustainability and enhance community engagement.
-                    <br>
-                    <br>
-                    I graduated from the
-                    <a class="bio-link" href="https://arizona.edu" target="_blank" rel="noopener">
-                        <img src="icons/UA.svg" alt="University of Arizona" class="bio-icon">University of Arizona</a> with a B.S. in
-                    <a class="bio-link" href="https://math.arizona.edu" target="_blank" rel="noopener">Mathematics</a>, and a B.S. in
-                    <a class="bio-link" href="https://infosci.arizona.edu" target="_blank" rel="noopener">Information Science</a>, with minors in
-                    <a class="bio-link" href="https://math.arizona.edu" target="_blank" rel="noopener">Statistics and Data Science</a>, 
-                    <a class="bio-link" href="https://cs.arizona.edu" target="_blank" rel="noopener">Computer Science</a>, and
-                    <a class="bio-link" href="https://eller.arizona.edu/departments-research/schools-departments/finance" target="_blank" rel="noopener">Finance</a>, along with a certificate in 
-                    <a class="bio-link" href="https://eller.arizona.edu/departments-research/centers-labs/entrepreneurship/focus/new-venture-development" target="_blank" rel="noopener">Entrepreneurship and New Venture Development</a>. 
-                    I also earned a
-                    <a class="bio-link" href="https://sps.columbia.edu/academics/certificates" target="_blank" rel="noopener"> Graduate Certificate in Advanced Business</a> from
-                    <a class="bio-link" href="https://columbia.edu/" target="_blank" rel="noopener">
-                        <img src="icons/Columbia.png" alt="Columbia University" class="bio-icon">Columbia University</a>
-                    and the <a class="bio-link" href="https://online.hbs.edu/courses/core/" target="_blank" rel="noopener">Credential of Readiness (CORe)</a> from
-                    <a class="bio-link" href="https://online.hbs.edu/" target="_blank" rel="noopener">
-                        <img src="icons/HBS.svg" alt="Harvard Business School Online" class="bio-icon">Harvard Business School Online</a>.
-                    <br>
-                    <br>
-                    In my free time, I enjoy <a class="bio-link" href="https://unsplash.com/@r_li" target="_blank" rel="noopener">photography</a>, astronomy, urban hiking, biking, and spending time with my two lovely cats.
-                    I also love exploring new technologies and how they can be applied in urban environments.
-                </p>
-            </div>
-        </section> <!-- Closing About Me section -->
-
-
-
-        <!-- Photo Section -->
-        <section class="pics-container">
-            <div class="pics-row">
-                <img src="pics/demo.jpeg" alt="Demo" style="width: 33.33%;">
-                <img src="pics/me.jpg" alt="Me" style="width: 33.33%;">
-                <img src="pics/exhibit.jpg" alt="Exhibit" style="width: 33.33%;">
-                
-            </div>
-            <div class="pics-row">
-                <img src="pics/pepper.jpg" alt="Pepper" style="width: 50%;">
-                <img src="pics/piggy.jpg" alt="Piggy" style="width: 50%;">
-            </div>
-        </section> <!-- Closing Photo section -->
-        
-        
-        
-        <!-- Resume Section -->
-        <section>
-            <h2 id="resume-pdf" class="anchor"><i class="fa-regular fa-file"></i> Resume</h2>
-            <div class="contact-links">
-                <a class="contact-link" href="docs/Resume Ruoyu Li.pdf" target="_blank" rel="noopener"><i class="fa-regular fa-file-pdf"></i>&nbsp;PDF&nbsp;&&nbsp;<i class="fa-regular fa-floppy-disk"></i>&nbsp;Save&nbsp;</a>
-            </div>
-            <br>
-            <iframe id="resume-web" src="docs/Resume Ruoyu Li.html" class="resume-iframe anchor"></iframe>
         </section>
-        <!-- Closing Resume section -->
-         
 
+        <!-- About Section -->
+        <section id="about" class="container section-l">
+            <div class="section-header">
+                <div class="section-bar"></div>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            
+            <div class="about-card">
+                <p>
+                    Hi! I am <b>Ruoyu Li</b> (李若愚 Lǐ, RuòYú), an advocate for the 
+                    <a href="https://darksky.org/who-we-are" target="_blank" rel="noopener noreferrer" class="about-link">dark sky movement</a> 
+                    and
+                    <a href="https://darksky.org/what-we-do/advancing-responsible-outdoor-lighting" target="_blank" rel="noopener noreferrer" class="about-link">responsible outdoor lighting</a>.
+                    Currently, I am a graduate student in urban data science at 
+                    <a href="https://engineering.nyu.edu/research-innovation/centers/cusp" target="_blank" rel="noopener noreferrer" class="about-link"><img src="icons/NYU.png" alt="NYU" class="about-icon">NYU CUSP</a> (Center for Urban Science + Progress).
+                </p>
+                <p>
+                    My work spans across continents. I serve as an Engagement Volunteer at 
+                    <a href="https://darksky.org" target="_blank" rel="noopener noreferrer" class="about-link"><img src="icons/DarkSky.png" alt="DarkSky" class="about-icon">DarkSky International</a>, lead the New York and Beijing chapters, and co-founded the Shenzhen chapter. I am also active in the geospatial community as the founding treasurer of the 
+                    <a href="https://community.asprs.org/chapter-nyu" target="_blank" rel="noopener noreferrer" class="about-link"><img src="icons/ASPRS_NYU.svg" alt="ASPRS_NYU" class="about-icon">NYU chapter of ASPRS</a> (American Society for Photogrammetry and Remote Sensing), a Student and Open Tech Committee member at 
+                    <a href="https://gismonyc.org" target="_blank" rel="noopener noreferrer" class="about-link"><img src="icons/GISMO.png" alt="GISMO" class="about-icon">GISMO</a> (NYC Geospatial Information Systems and Mapping Organization), and a member of the 
+                    <a href="https://www.chinacses.org" target="_blank" rel="noopener noreferrer" class="about-link"><img src="icons/CSES.svg" alt="CSES" class="about-icon">Chinese Society for Environmental Sciences</a>.
+                </p>
+                <p style="font-size: 1rem; color: #4b5563;">
+                    <i class="fa-solid fa-graduation-cap" style="margin-right:0.5rem; color:#9ca3af;"></i>
+                    <b>Education:</b> University of Arizona (B.S. Math.; B.S. Info. Sci.; Minors: Stats.+DataSci./ComputerSci./Finance; Certificate: Entrep. and New Venture Development), Columbia University (Graduate Certificate in Advanced Business)
+                </p>
+                <p style="font-size: 1rem; color: #4b5563; margin-bottom:0;">
+                    <i class="fa-solid fa-heart" style="margin-right:0.5rem; color:#9ca3af;"></i>
+                    <b>Interests:</b> Photography, astronomy, urban hiking, biking, and spending time with my two lovely cats.
+                </p>
+            </div>
+        </section>
 
+        <!-- Gallery Section -->
+        <section class="container section-s">
+            <div class="gallery-grid">
+                <!-- Row 1: 3 images (33% width each), square -->
+                <div class="gallery-item g-span-2 aspect-square">
+                    <img src="pics/demo.jpeg" alt="Gallery">
+                </div>
+                <div class="gallery-item g-span-2 aspect-square">
+                    <img src="pics/me.jpg" alt="Gallery">
+                </div>
+                <div class="gallery-item g-span-2 aspect-square">
+                    <img src="pics/exhibit.jpg" alt="Gallery">
+                </div>
+                
+                <!-- Row 2: 2 images (50% width each), fixed height -->
+                <div class="gallery-item g-span-3 h-fixed">
+                    <img src="pics/pepper.jpg" alt="Gallery">
+                </div>
+                <div class="gallery-item g-span-3 h-fixed">
+                    <img src="pics/piggy.jpg" alt="Gallery">
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="container section-m">
+            <div class="resume-box">
+                <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:1rem; color:#111827;">
+                    <i class="fa-regular fa-file text-nyu" style="margin-right:0.5rem;"></i>Resume
+                </h2>
+                <a href="docs/Resume Ruoyu Li.pdf" target="_blank" class="resume-btn">
+                    <i class="fa-solid fa-download"></i> Download PDF
+                </a>
+                
+                <div class="resume-frame-container">
+                    <iframe src="docs/Resume Ruoyu Li.html" class="resume-frame">
+                        <p>Your browser does not support iframes. <a href="docs/Resume Ruoyu Li.pdf">Download PDF</a>.</p>
+                    </iframe>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
-        <section class="contact-container anchor" id="contact">
-            <p class="contact-header">✨ <b><i>Let's connect!</i></b> ✨</p>
+        <section id="contact" class="container section-s">
+            <div class="contact-box">
+                <p style="font-size:1.25rem; font-weight:500; margin-bottom:1rem; font-style:italic; color:#1f2937;">✨ Let's connect! ✨</p>
+                
+                <div class="hypercube-container">
+                    <img src="icons/Li-V2-broken.svg" alt="HyperCube" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:100%; z-index:0;">
+                    <div style="position:absolute; top:18%; left:-7.7%; width:95%; height:auto; transform:rotate(45deg); z-index:10;">
+                        <img src="icons/logo-cover.gif" alt="Animation" style="width:100%;">
+                    </div>
+                </div>
 
-            <div class="hypercube-container">
-                <img src="icons/Li-V2-broken.svg" alt="HyperCube" class="hypercube-img">
-                <img src="icons/logo-cover.gif" alt="Logo Cover" class="hypercube-gif">
+                <div class="contact-actions">
+                    <a href="mailto:hi@r-li.com" class="contact-btn">
+                        <i class="fa-regular fa-envelope"></i> hi@r-li.com
+                    </a>
+                    <a href="mailto:r.li@nyu.edu" class="contact-btn">
+                        <i class="fa-solid fa-graduation-cap"></i> r.li@nyu.edu
+                    </a>
+                    <a href="mailto:ruoyu.li@darksky.org" class="contact-btn">
+                        <i class="fa-solid fa-star"></i> ruoyu.li@darksky.org
+                    </a>
+                </div>
+                
+                <div class="contact-socials">
+                     <a href="https://linkedin.com/in/rli/" target="_blank" rel="noopener noreferrer" class="contact-social-btn linkedin"><i class="fa-brands fa-linkedin"></i></a>
+                     <a href="http://github.com/ry-li" target="_blank" rel="noopener noreferrer" class="contact-social-btn github"><i class="fa-brands fa-github"></i></a>
+                     <a href="https://instagram.com/uyouril" target="_blank" rel="noopener noreferrer" class="contact-social-btn instagram"><i class="fa-brands fa-instagram"></i></a>
+                     <a href="https://unsplash.com/@r_li" target="_blank" rel="noopener noreferrer" class="contact-social-btn github"><i class="fa-brands fa-unsplash"></i></a>
+                     <a href="https://500px.com/p/ruoyuli" target="_blank" rel="noopener noreferrer" class="contact-social-btn github"><i class="fa-brands fa-500px"></i></a>
+                     <a href="docs/rednote.jpg" target="_blank" class="contact-social-btn instagram"><img src="icons/rednote.svg" alt="rednote"></a>
+                </div>
             </div>
+        </section>
 
-            <div class="contact-links">
-                <a class="contact-link" href="https://linkedin.com/in/rli/" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-linkedin contact-fa-icon"></i> LinkedIn
-                </a>
-                <a class="contact-link" href="http://github.com/ry-li" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-github contact-fa-icon"></i> GitHub
-                </a>
-            </div>
+    </main>
 
-            <div class="contact-links">
-                <a class="contact-link" href="https://instagram.com/uyouril" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-instagram contact-fa-icon"></i> Instagram
-                </a>
-                <a class="contact-link" href="https://unsplash.com/@r_li" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-unsplash contact-fa-icon"></i> Unsplash
-                </a>
-                <a class="contact-link" href="https://500px.com/p/ruoyuli" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-500px contact-fa-icon"></i> 500px
-                </a>
-                <a class="contact-link" href="https://www.xiaohongshu.com/user/profile/5c0072e951783a170d36f58a" target="_blank" rel="noopener">
-                    <img src="icons/Xiaohongshu--Streamline-Simple-Icons.png" alt="RedNote" class="contact-icon">&nbsp;rednote
-                </a>
-            </div>
-
-            <div class="contact-links">
-                <a class="contact-link" href="mailto:hi@r-li.com">
-                    <i class="fa-regular fa-envelope"></i> email @r-li.com
-                </a>
-                <a class="contact-link" href="mailto:r.li@nyu.edu">
-                    <i class="fa-regular fa-envelope"></i> email @NYU.edu
-                </a>
-                <a class="contact-link" href="mailto:ruoyu.li@darksky.org">
-                    <i class="fa-regular fa-envelope"></i> email @DarkSky.org
-                </a>
-            </div>
-        
-        </section> <!-- Closing Contact section -->
-
-    </main> <!-- Closing main -->
-    
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Ruoyu Li&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa-regular fa-file-code"></i>&nbsp;Developed by Ruoyu Li</p>
+        <p class="footer-text">&copy; 2025 Ruoyu Li</p>
+        <p class="footer-sub"><i class="fa-solid fa-code"></i> Designed & Developed by Ruoyu Li</p>
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const icon = mobileBtn.querySelector('i');
 
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
 
-<!-- Script for Responsive Topnav with Dropdown -->
-<script src="script.js"></script>
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            });
+        });
 
-
+        // Navbar Blur/Shadow on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
-
 </html>
