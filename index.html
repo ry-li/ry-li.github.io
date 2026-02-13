@@ -38,23 +38,6 @@
             --transition: all 0.3s ease;
         }
 
-        [data-theme="dark"] {
-            --nyu-violet: #a78bfa;
-            --nyu-light: #c4b5fd;
-            --nyu-bg: #111827;
-            --nyu-soft: #374151;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --white: #1f2937;
-            --border-color: #374151;
-            --navbar-bg: rgba(31, 41, 55, 0.95);
-            --card-bg: #1f2937;
-            --update-card-bg: #111827;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-            --shadow-soft: 0 4px 20px -2px rgba(139, 92, 246, 0.15);
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -609,9 +592,6 @@
                         <a href="docs/Resume Ruoyu Li.pdf" target="_blank" class="dropdown-item">Download</a>
                     </div>
                 </div>
-                <button id="theme-toggle" class="nav-link" aria-label="Toggle Dark Mode" style="background:none; border:none; cursor:pointer; font-size:1rem; padding: 0.5rem;">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
                 <a href="#contact" class="nav-btn">Contact</a>
             </div>
 
@@ -626,9 +606,6 @@
             <a href="#about" class="mobile-link">About Me</a>
             <a href="#updates" class="mobile-link">Updates</a>
             <a href="#resume" target="_blank" class="mobile-link">Resume</a>
-            <button id="mobile-theme-toggle" class="mobile-link" style="background:none; border:none; width:100%; text-align:left; cursor:pointer; font-family:inherit; font-size:1rem;">
-                <i class="fa-solid fa-moon" style="width:1.5rem;"></i> Dark Mode
-            </button>
             <a href="#contact" class="mobile-link">Contact</a>
         </div>
     </nav>
@@ -894,134 +871,6 @@
             }
         });
 
-        // Dark Mode Logic
-        const toggleBtn = document.getElementById('theme-toggle');
-        const mobileToggleBtn = document.getElementById('mobile-theme-toggle');
-        const themeIcon = toggleBtn.querySelector('i');
-        const mobileThemeIcon = mobileToggleBtn.querySelector('i');
-        const resumeFrame = document.querySelector('.resume-frame');
-
-        // Check for saved theme preference or system preference
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        let isDarkMode = false;
-
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            isDarkMode = true;
-            updateIcons(true);
-        }
-
-        // Resume Theme Logic
-        function updateResumeTheme(isDark) {
-            if (!resumeFrame) return;
-            try {
-                const doc = resumeFrame.contentDocument || resumeFrame.contentWindow.document;
-                if (!doc) return;
-
-                const styleId = 'resume-dark-mode-style';
-                let styleTag = doc.getElementById(styleId);
-
-                if (!styleTag) {
-                    styleTag = doc.createElement('style');
-                    styleTag.id = styleId;
-                    styleTag.innerHTML = `
-                        body.dark-mode, body.dark-mode .WordSection1 {
-                            color: #ffffff !important;
-                            background-color: transparent !important;
-                        }
-                        body.dark-mode * {
-                            background-color: transparent !important;
-                            border-color: #555 !important;
-                        }
-                        body.dark-mode p,
-                        body.dark-mode span,
-                        body.dark-mode div,
-                        body.dark-mode li,
-                        body.dark-mode h1,
-                        body.dark-mode h2,
-                        body.dark-mode h3,
-                        body.dark-mode h4,
-                        body.dark-mode h5,
-                        body.dark-mode h6,
-                        body.dark-mode b,
-                        body.dark-mode strong,
-                        body.dark-mode i,
-                        body.dark-mode em {
-                            color: #ffffff !important;
-                        }
-                        body.dark-mode a, body.dark-mode a * {
-                            color: #a78bfa !important;
-                            text-decoration: underline;
-                        }
-                    `;
-                    doc.head.appendChild(styleTag);
-                }
-
-                if (isDark) {
-                    doc.body.classList.add('dark-mode');
-                } else {
-                    doc.body.classList.remove('dark-mode');
-                }
-            } catch (e) {
-                console.warn('Cannot access iframe content:', e);
-            }
-        }
-
-        // Apply theme to resume when loaded
-        if (resumeFrame) {
-            resumeFrame.addEventListener('load', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                updateResumeTheme(currentTheme === 'dark');
-            });
-
-            // Apply theme immediately if already loaded
-            if (resumeFrame.contentDocument && resumeFrame.contentDocument.readyState === 'complete') {
-                updateResumeTheme(isDarkMode);
-            }
-        }
-
-        function updateIcons(isDark) {
-            if (isDark) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                mobileThemeIcon.classList.remove('fa-moon');
-                mobileThemeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                mobileThemeIcon.classList.remove('fa-sun');
-                mobileThemeIcon.classList.add('fa-moon');
-            }
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            let newThemeIsDark = false;
-
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                updateIcons(false);
-                newThemeIsDark = false;
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                updateIcons(true);
-                newThemeIsDark = true;
-            }
-            updateResumeTheme(newThemeIsDark);
-        }
-
-        toggleBtn.addEventListener('click', toggleTheme);
-        mobileToggleBtn.addEventListener('click', () => {
-            toggleTheme();
-            // Close mobile menu
-            mobileMenu.classList.remove('active');
-            const icon = document.getElementById('mobile-menu-btn').querySelector('i');
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
-        });
 
         // Lightbox Logic
         const lightbox = document.getElementById('lightbox');
